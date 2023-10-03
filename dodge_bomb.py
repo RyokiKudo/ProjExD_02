@@ -5,13 +5,13 @@ import pygame as pg
 
 WIDTH, HEIGHT = 1600, 900
 
+
 delta = {  # 練習３：移動量辞書
     pg.K_UP: (0, -5),
     pg.K_DOWN: (0, +5),
     pg.K_LEFT: (-5, 0),
     pg.K_RIGHT: (+5, 0),
 }
-
 
 
 def check_bound(obj_rct: pg.Rect):
@@ -48,8 +48,8 @@ def main():
     }   
     """ばくだん"""
     
-    size_x,size_y = 0,0 
-    bd_img = pg.Surface((20, 20))  # 練習１：爆弾Surfaceを作成する
+    #size_x,size_y = 0,0 
+    bd_img = pg.Surface((100, 100))  # 練習１：爆弾Surfaceを作成する
     bd_img.set_colorkey((0, 0, 0))  # 練習１：黒い部分を透明にする
     pg.draw.circle(bd_img, (255, 0, 0), (10, 10), 10)
     bd_rct = bd_img.get_rect()  # 練習１：SurfaceからRectを抽出する
@@ -86,21 +86,19 @@ def main():
         
         
         """ばくだん"""
-        pg.transform.rotozoom(kk_img, 0, 2.0)
+        accs = [a for a in range(1,11)]
+        avx, avy = vx*accs[min(tmr//500, 9)], vy*accs[min(tmr//500, 9)]
+        bd_img = bd_img[min(tmr//500, 9)]
         bd_rct.move_ip(vx,vy) #練習2 爆弾を移動させる
         yoko,tate = check_bound(bd_rct)
         if not yoko: #練習４横方向にはみ出ていたら
             vx *= -1
         if not tate: #練習４横方向にはみ出たら
             vy *= -1
-        if size_x and size_y < 20:
-            size_x += tmr
-            size_y += tmr
         screen.blit(bd_img, bd_rct)  # 練習１ Rectを使って試しにblit
-        
         pg.display.update()
         tmr += 1
-        clock.tick(50)
+        clock.tick(100)
 
 
 if __name__ == "__main__":
