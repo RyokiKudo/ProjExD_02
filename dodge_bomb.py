@@ -64,8 +64,6 @@ def main():
             if event.type == pg.QUIT: 
                 return
         
-        
-        
         if kk_rct.colliderect(bd_rct): #練習5ぶつかっていたら
             print("ゲームオーバー")
             return
@@ -83,7 +81,6 @@ def main():
         if check_bound(kk_rct) != (True,True): #練習4はみ出し判定
             kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
         screen.blit(kk_img, kk_rct) #練習３ 移動後の座標に表示させる
-        
         
         """ばくだん"""
         accs = [a for a in range(1,11)]
